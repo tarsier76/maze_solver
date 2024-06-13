@@ -19,6 +19,9 @@ class Window:
             self.redraw()
         print("Window closed...")
 
+    def draw_line(self, line, fill_color="black"):
+        line.draw(self.canvas, fill_color)
+
     def close(self):
         self.running = False 
 
