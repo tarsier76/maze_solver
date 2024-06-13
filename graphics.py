@@ -2,13 +2,11 @@ from tkinter import Tk, BOTH, Canvas
 
 class Window:
     def __init__(self, width, height):
-        self.width = width
-        self.height = height 
         self.root_widget = Tk() 
         self.root_widget.title("Maze Generator and Solver")
         self.root_widget.protocol("WM_DELETE_WINDOW", self.close)
-        self.canvas = Canvas()
-        self.canvas.pack()
+        self.canvas = Canvas(self.root_widget, bg="white", height=height, width=width)
+        self.canvas.pack(fill=BOTH, expand=1)
         self.running = False 
 
     def redraw(self):
@@ -19,6 +17,7 @@ class Window:
         self.running = True 
         while self.running:
             self.redraw()
+        print("Window closed...")
 
     def close(self):
         self.running = False 
