@@ -29,6 +29,7 @@ class Maze:
         self._create_cells()
         self._break_entrance_and_exit()
         self._break_walls_r(0, 0)
+        self._reset_cells_visited()
 
     def _create_cells(self):
         for i in range(self._num_cols):
@@ -67,6 +68,7 @@ class Maze:
         while True:
             next_index_list = []
 
+            
             if i > 0 and not self._cells[i - 1][j].visited:
                 next_index_list.append((i - 1, j))
             
@@ -86,21 +88,26 @@ class Maze:
             direction_index = random.randrange(len(next_index_list))
             next_index = next_index_list[direction_index]
 
+
             if next_index[0] == i + 1:
                 self._cells[i][j].has_right_wall = False
                 self._cells[i + 1][j].has_left_wall = False
-       
+            
             if next_index[0] == i - 1:
                 self._cells[i][j].has_left_wall = False
                 self._cells[i - 1][j].has_right_wall = False
-         
+            
             if next_index[1] == j + 1:
                 self._cells[i][j].has_bottom_wall = False
                 self._cells[i][j + 1].has_top_wall = False
-          
+            
             if next_index[1] == j - 1:
                 self._cells[i][j].has_top_wall = False
                 self._cells[i][j - 1].has_bottom_wall = False
 
-    
             self._break_walls_r(next_index[0], next_index[1])
+
+    def _reset_cells_visited(self):
+        for col in self._cells:
+            for cell in col:
+                cell.visited = False
